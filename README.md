@@ -8,3 +8,6 @@
 4. Google Play url calls Play Store.
 5. Support for onAppear function to start an animation when the user completely sees the WebView.
 6. Enabled database (websql), localStorage and cache event (manifest).
+7. Any redirect (href) create a modal above the WebView.
+8. Geolocation works only with projects stored in device.
+9. Injected informations about your application in WebView (just an example: MaganizeData Object).
