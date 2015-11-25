@@ -42,9 +42,8 @@ public class MainActivity extends AppCompatActivity {
 
         paths.add("android_asset/Features/index.html");
 
-        paths.add("http://media.admag.com.br/agencies/27/advertisers/32/advertisements/73/screens/f49b762f13846804ab78a36ec0803c37/index.html");
+        paths.add("http://media.admag.com.br/agencies/27/advertisers/32/advertisements/73/screens/94fb2975650adc825915c98fd812e1fb/index.html");
         paths.add("http://media.admag.com.br/agencies/27/advertisers/32/advertisements/58/screens/6dfcdd5d68e8ebeda4c82a8a33ecdb7a/index.html");
-
 
         viewerAdapter = new CoreViewPagerAdapter(this, getApplicationContext(), QTD_PAGES, paths, maganizeData);
 
@@ -58,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
 
         super.onActivityResult(requestCode, resultCode, data);
 
-        View view = coreViewPager.getChildAt(coreViewPager.getCurrentItem() - 1);
+        View view = coreViewPager.getFocusedChild();
 
         if(view instanceof CustomWebView){
 
