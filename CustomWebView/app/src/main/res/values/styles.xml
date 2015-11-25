@@ -2,9 +2,9 @@
 
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
 
-        <item name="colorPrimary">#ff7442</item>
-        <item name="colorPrimaryDark">#b2b2b2</item>
-        <item name="colorAccent">#b2b2b2</item>
+        <item name="colorPrimary">#34495e</item>
+        <item name="colorPrimaryDark">#34495e</item>
+        <item name="colorAccent">@android:color/white</item>
     </style>
 
     <style name="webclient_modal_animator">

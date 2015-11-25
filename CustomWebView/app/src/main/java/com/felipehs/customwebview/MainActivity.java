@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
         maganizeData.setIssuePrice("FREE");
         maganizeData.setIssueTotalPages(QTD_PAGES);
         maganizeData.setIssuePublicationDate(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ").format(new Date()));
-        maganizeData.setDeviceId(Settings.Secure.getString(this.getContentResolver(), Settings.Secure.ANDROID_ID));
+        maganizeData.setVendorId(Settings.Secure.getString(this.getContentResolver(), Settings.Secure.ANDROID_ID));
 
         return maganizeData;
     }

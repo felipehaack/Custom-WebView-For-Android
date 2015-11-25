@@ -10,7 +10,7 @@ public class MaganizeData {
     private Integer issueTotalPages;
     private String issuePrice;
     private String issuePublicationDate;
-    private String deviceId;
+    private String vendorId;
 
     public String getIssueName() {
 
@@ -62,13 +62,13 @@ public class MaganizeData {
         this.issuePublicationDate = issuePublicationDate;
     }
 
-    public String getDeviceId() {
+    public String getVendorId() {
 
-        return deviceId;
+        return vendorId;
     }
 
-    public void setDeviceId(String deviceId) {
+    public void setVendorId(String vendorId) {
 
-        this.deviceId = deviceId;
+        this.vendorId = vendorId;
     }
 }

@@ -201,7 +201,7 @@ public class CustomWebView extends WebView {
                 jsonObject.put("issue_price", maganizeData.getIssuePrice());
                 jsonObject.put("issue_total_pages", maganizeData.getIssueTotalPages());
                 jsonObject.put("issue_publication_date", maganizeData.getIssuePublicationDate());
-                jsonObject.put("device_id", maganizeData.getDeviceId());
+                jsonObject.put("vendor_id", maganizeData.getVendorId());
 
                 loadUrl("javascript:(function(){maganizeData = " + jsonObject.toString() + ";})();");
             } catch (Exception exception) {
