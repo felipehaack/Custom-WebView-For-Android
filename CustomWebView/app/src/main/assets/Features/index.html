@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html manifest="features.manifest">
+    <head>
+        <title>ADMAG - SDK - Features</title>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+
+        <link rel="stylesheet" href="css/init.css" type="text/css">
+
+        <script type="text/javascript" src="libs/jquery-2.1.4.min.js"></script>
+        <script type="text/javascript" src="libs/jMobmark.js"></script>
+    </head>
+    <body>
+        <div id="container">
+
+            <ul>
+                <li>
+                    <div id="cacheEvent" style="width: 100%; max-height: 300px; overflow-x: hidden; overflow-y: auto; word-wrap: break-word;">
+                        <p>Cache Event:</p>
+                    </div>
+                </li>
+                <li>
+                    <div id="localstorage">
+                        
+                    </div>
+                </li>
+                <li>
+                    <div id="deviceStatus"></div>
+                </li>
+
+                <li>
+                    <a href="http://www.admag.com.br">redirect</a>
+                </li>
+
+                <li>
+                    <a href="mailto:tablet@admag.com.br">mailto</a>
+                </li>
+
+                <li>
+                    <a href="https://play.google.com/store/apps/details?id=com.bandainamcogames.dbzdokkanww&hl=pt_BR">google play</a>
+                </li>
+
+                <li>
+                    <a href="https://itunes.apple.com/br/app/apple-store/id375380948?mt=8">itunes</a>
+                </li>
+
+                <li>
+                    <div id="image"></div>
+
+                    <a id="imageHref" href="javascript:callNativeCameraOrGallery()">camera or gallery</a>
+
+                    <input style="width: 1px; opacity: 0;" type="file" name="fileChooser" id="fileChooser" accept="image/jpeg" capture="camera">
+                </li>
+
+                <li>
+                    <a href="javascript:geolocalizationAdmag()">geolocalization</a>
+                </li>
+
+                <li>
+                    <div id="preventDef">
+
+                        <div id="moveObj" class="lelele" style="-webkit-transform: translate3d(0, 0, 0); width: 80px; height: 80px; border-radius: 100px; background-color: red; position: absolute; z-index: 1;"></div>
+
+                        <div>
+                            Test Prevent Default
+                        </div>
+                    </div>
+                </li>
+
+                <li>
+                    <div id="onAppearCalled"></div>
+                </li>
+
+                <li>
+                    <div id="containerAnim">
+
+                        <div class="animRect"></div>
+                    </div>
+                </li>
+                <li>
+                    <div id="navigator">
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <script type="text/javascript">
+
+            if(typeof localstorage !== 'undefined')
+                $('#localstorage').html('LocalStorage esta operante');
+            else
+                $('#localstorage').html('LocalStorage nao esta operante');
+
+            window.setInterval(function(){
+
+                $("#cacheEvent").append('<p>Estado: ' + window.applicationCache.status + '</p>');
+            }, 1000);
+
+            function handleCacheEvent(e) {
+              
+                $("#cacheEvent").append('<p>' + e.type + '</p>');
+            }
+
+            function handleCacheError(e) {
+
+                $("#cacheEvent").append('<p>' + e.type + '</p>');
+            };
+
+            appCache = window.applicationCache;
+
+            // Fired after the first cache of the manifest.
+            appCache.addEventListener('cached', handleCacheEvent, false);
+
+            // Checking for an update. Always the first event fired in the sequence.
+            appCache.addEventListener('checking', handleCacheEvent, false);
+
+            // An update was found. The browser is fetching resources.
+            appCache.addEventListener('downloading', handleCacheEvent, false);
+
+            // The manifest returns 404 or 410, the download failed,
+            // or the manifest changed while the download was in progress.
+            appCache.addEventListener('error', handleCacheError, false);
+
+            // Fired after the first download of the manifest.
+            appCache.addEventListener('noupdate', handleCacheEvent, false);
+
+            // Fired if the manifest file returns a 404 or 410.
+            // This results in the application cache being deleted.
+            appCache.addEventListener('obsolete', handleCacheEvent, false);
+
+            // Fired for each resource listed in the manifest as it is being fetched.
+            appCache.addEventListener('progress', handleCacheEvent, false);
+
+            // Fired when the manifest resources have been newly redownloaded.
+            appCache.addEventListener('updateready', handleCacheEvent, false);
+
+            $('#navigator').html(navigator.userAgent);
+
+            if (jMobmark.is.ios() || jMobmark.touchOrClick.start === 'mousedown') {
+
+                var fileChooser = document.getElementById('fileChooser');
+                fileChooser.addEventListener('change', handleFileSelect, false);
+
+                $('#imageHref').attr('href', 'javascript:clickFileChooser()');
+
+                function loadAndDrawImage(url) {
+
+                    var img = new Image();
+
+                    img.src = url;
+
+                    img.onload = function()
+                    {
+
+                        $('#image').css({
+                            'background': 'url(' + img.src + ') no-repeat #CCC',
+                            'background-size': 'contain',
+                            'background-position': '50% 50%'
+                        })
+                    }
+                }
+
+                function handleFileSelect(event) {
+
+                    var files = event.target.files;
+
+                    var file = files[0];
+
+                    if (file.type !== '' && !file.type.match('image.*')) {
+
+                        return;
+                    }
+
+                    window.URL = window.URL || window.webkitURL;
+
+                    var imageURL = window.URL.createObjectURL(file);
+
+                    loadAndDrawImage(imageURL);
+                }
+
+                function clickFileChooser() {
+
+                    $('#fileChooser').click();
+                }
+            } else {
+
+                $('#canvas').remove();
+
+                WebViewInterface.imgFileChooserResult = function(url) {
+
+                    if (url !== '') {
+
+                        $('#image').css('background', 'url(' + url + ') #CCC no-repeat');
+                        $('#image').css('background-size', 'contain');
+                        $('#image').css('background-position', '50% 50%');
+                    } else {
+
+                        alert('Nenhuma imagem obtida!');
+                    }
+                };
+
+                function callNativeCameraOrGallery() {
+
+                    try {
+
+                        WebViewInterface.imgFileChooser();
+                    } catch (e) {
+
+                        alert('O APP esta sem permissão para usar camera ou galeria!');
+                    }
+                }
+            }
+
+            function geolocalizationAdmag() {
+
+                if (navigator.geolocation) {
+
+                    navigator.geolocation.getCurrentPosition(function(position) {
+
+                        alert('Lat: ' + position.coords.latitude + ' -- Long: ' + position.coords.longitude);
+                    }, function() {
+
+                        alert('Nao foi possivel obter as coordenadas!');
+                    });
+                } else {
+
+                    alert('Sem acesso ao GPS!');
+                }
+            }
+
+            var moveObj = {
+                x: 0,
+                y: 0,
+                pX: 0,
+                pY: 0,
+                e: false
+            };
+
+            $('#moveObj').bind(jMobmark.touchOrClick.start, function(e) {
+
+                if (jMobmark.touchOrClick.start === 'mousedown') {
+
+                    moveObj.x = e.pageX;
+                    moveObj.y = e.pageY;
+                } else {
+
+                    moveObj.x = e.originalEvent.touches[0].pageX;
+                    moveObj.y = e.originalEvent.touches[0].pageY;
+                }
+
+                moveObj.e = true;
+            });
+
+            $('#moveObj').bind(jMobmark.touchOrClick.move, function(e) {
+
+                if (moveObj.e) {
+
+                    e.preventDefault();
+
+                    if (jMobmark.touchOrClick.start === 'mousedown') {
+
+                        moveObj.pX += (e.pageX - moveObj.x);
+                        moveObj.pY += (e.pageY - moveObj.y);
+                    } else {
+
+                        moveObj.pX += (e.originalEvent.touches[0].pageX - moveObj.x);
+                        moveObj.pY += (e.originalEvent.touches[0].pageY - moveObj.y);
+                    }
+
+                    $('#moveObj').css(jMobmark.hasWebKit + 'transform', 'translate3d(' + moveObj.pX + 'px, ' + moveObj.pY + 'px, 0px)');
+
+                    if (jMobmark.touchOrClick.start === 'mousedown') {
+
+                        moveObj.x = e.pageX;
+                        moveObj.y = e.pageY;
+                    } else {
+
+                        moveObj.x = e.originalEvent.touches[0].pageX;
+                        moveObj.y = e.originalEvent.touches[0].pageY;
+                    }
+                }
+            });
+
+            $('#moveObj').bind('touchcancel', function(e) {
+
+            });
+
+            $('#moveObj').bind(jMobmark.touchOrClick.end, function(e) {
+
+                moveObj.e = false;
+            });
+
+            $("#deviceStatus").append('<p>' + typeof window.navigator === 'undefined' ? "Não existe window.navigator" : "Existe window.navigator" + '</p>');
+            $("#deviceStatus").append('<p>' + typeof navigator === 'undefined' ? "Não existe navigator" : "Existe navigator" + '</p>');
+            $("#deviceStatus").append('<p>' + navigator.onLine ? "Device Online" : "Device Offline"+ '</p>');
+
+            window.onAppear = function() {
+
+                $('#onAppearCalled').append('<p>chamou onAppear</p>');
+            };
+        </script>
+    </body>
+</html>

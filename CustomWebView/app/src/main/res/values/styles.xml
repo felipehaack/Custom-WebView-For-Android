@@ -1,0 +1,14 @@
+<resources>
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+
+        <item name="colorPrimary">#ff7442</item>
+        <item name="colorPrimaryDark">#b2b2b2</item>
+        <item name="colorAccent">#b2b2b2</item>
+    </style>
+
+    <style name="webclient_modal_animator">
+        <item name="android:windowEnterAnimation">@anim/webclient_animator_enter</item>
+        <item name="android:windowExitAnimation">@anim/webclient_animator_leave</item>
+    </style>
+</resources>

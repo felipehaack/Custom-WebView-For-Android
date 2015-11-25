@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Custom WebView</string>
+
+    <string name="webclient_button">FECHAR</string>
+    <string name="webclient_mailto">Enviar Email!</string>
+
+    <string name="webinterface_img_file_chooser_option">Selecione uma opção!</string>
+    <string name="webinterface_img_file_chooser_option1">Tirar Foto</string>
+    <string name="webinterface_img_file_chooser_option2">Obter da Galeria</string>
+</resources>

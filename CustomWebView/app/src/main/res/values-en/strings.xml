@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Custom WebView</string>
+
+    <string name="webclient_button">CLOSE</string>
+    <string name="webclient_mailto">Send Email!</string>
+
+    <string name="webinterface_img_file_chooser_option">Choose an option!</string>
+    <string name="webinterface_img_file_chooser_option1">Take a Photo</string>
+    <string name="webinterface_img_file_chooser_option2">Gallery</string>
+</resources>

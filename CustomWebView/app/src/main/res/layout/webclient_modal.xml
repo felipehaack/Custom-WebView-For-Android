@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFF">
+
+    <Button
+        android:id="@+id/webclient_modal_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/webclient_button"
+        android:gravity="end"
+        android:padding="10dp"
+        android:background="#000"
+        android:textColor="#FFF"
+        android:textSize="18sp"/>
+
+    <WebView
+        android:id="@+id/webclient_modal_webview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</LinearLayout>
